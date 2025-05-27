@@ -1,0 +1,961 @@
+/* Global Resets and Base Styles */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Font Families */
+  --font-family-sans: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-family-serif: 'Roboto Slab', serif;
+  --font-family-mono: 'Space Mono', monospace;
+
+  /* Core Colors (Dark Theme) */
+  --background-main: #121212; /* Deep dark gray */
+  --background-content: #1E1E1E; /* Slightly lighter for cards, modals */
+  --background-hover: #2A2A2A;   /* Hover state for content elements */
+  --background-elevated: #2C2C2C; /* For elements that need to stand out slightly */
+
+  --text-primary: #E0E0E0;   /* Off-white for primary text */
+  --text-secondary: #A0A0A0; /* Lighter gray for secondary/placeholder text */
+  --text-disabled: #616161;  /* For disabled text */
+
+  --border-color: #333333;    /* Subtle borders */
+  --border-color-strong: #4F4F4F; /* Stronger borders for focus/active */
+
+  /* Accent Colors */
+  --accent-blue: #2979FF;        /* Vibrant blue for primary actions */
+  --accent-blue-hover: #448AFF;   /* Lighter blue for hover */
+  --accent-blue-text: #FFFFFF;   /* Text on accent blue buttons */
+  --accent-blue-subtle: rgba(41, 121, 255, 0.1); /* Subtle background for selected items */
+
+
+  --accent-green: #00C853;       /* Green for success/connection */
+  --accent-green-hover: #00E676;
+  --accent-red: #D50000;         /* Red for error/disconnection/mic on */
+  --accent-red-hover: #FF1744;
+
+  /* Component Specific */
+  --card-border-radius: 12px;
+  --button-border-radius: 8px;
+  --input-border-radius: 6px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.25);
+  --shadow-lg: 0 8px 16px rgba(0,0,0,0.3);
+
+  scrollbar-color: var(--border-color-strong) var(--background-content);
+  scrollbar-width: thin;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background: var(--background-main);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-serif);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin-bottom: 0.75em;
+}
+
+h1 { font-size: 2.25rem; } /* 36px */
+h2 { font-size: 1.875rem; } /* 30px */
+h3 { font-size: 1.5rem; }   /* 24px */
+h4 { font-size: 1.25rem; }  /* 20px */
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+a, a:visited, a:active {
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--accent-blue-hover);
+  text-decoration: underline;
+}
+
+li {
+  list-style: none;
+}
+
+/* Forms: Inputs, Textareas, Selects */
+input,
+textarea,
+select {
+  font-family: var(--font-family-sans);
+  background: var(--background-content);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--input-border-radius);
+  padding: 12px 15px;
+  font-size: 1rem; /* 16px */
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  width: 100%; /* Default to full width */
+}
+
+input:hover, textarea:hover, select:hover {
+  border-color: var(--border-color-strong);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent-blue);
+  background: var(--background-main); /* Darken on focus for better contrast */
+  box-shadow: 0 0 0 3px rgba(41, 121, 255, 0.3);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+  user-select: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23A0A0A0' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px;
+  padding-right: 40px; /* Space for arrow */
+  cursor: pointer;
+}
+
+/* Buttons */
+button, .button {
+  font-family: var(--font-family-sans);
+  font-weight: 500;
+  background: var(--background-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--button-border-radius);
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+button:hover, .button:hover {
+  background-color: var(--background-hover);
+  border-color: var(--border-color-strong);
+}
+
+button:active, .button:active {
+  transform: translateY(1px);
+}
+
+button:focus-visible, .button:focus-visible {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(41, 121, 255, 0.4);
+}
+
+button.primary, .button.primary {
+  background: var(--accent-blue);
+  color: var(--accent-blue-text);
+  border-color: var(--accent-blue);
+}
+button.primary:hover, .button.primary:hover {
+  background: var(--accent-blue-hover);
+  border-color: var(--accent-blue-hover);
+}
+
+button.icon, .button.icon { /* Button that is an icon */
+  padding: 10px;
+  min-width: auto;
+}
+
+button .icon, .button .icon { /* Icon span inside a button */
+  font-size: 1.25em; /* Make icon slightly larger than text */
+  line-height: 1;
+}
+
+button[disabled], .button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--background-content);
+  border-color: var(--border-color);
+  color: var(--text-disabled);
+}
+
+/* Icon span styling (Material Symbols) */
+.icon {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal; /* Default weight */
+  font-style: normal;
+  font-size: 24px; /* Default icon size */
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Utility Classes */
+.hidden { display: none !important; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.h-screen-full { height: 100vh; }
+.w-screen-full { width: 100vw; }
+
+/* Header */
+header {
+  padding: 15px 30px; /* Adjusted padding */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure header is on top */
+  background-color: rgba(18, 18, 18, 0.8); /* Slightly transparent background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Streaming Console Area */
+.streaming-console {
+  background: var(--background-main);
+  color: var(--text-secondary);
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  padding-top: 77px; /* Header height + 1px border */
+}
+
+.streaming-console main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 1rem;
+  max-width: 100%;
+  overflow: hidden;
+}
+.streaming-console .main-app-area {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+/* Action Buttons in Control Tray (Play, Mic, etc.) */
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-elevated);
+  color: var(--text-primary);
+  font-size: 1.5rem; /* Larger icons in buttons */
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: 52px; /* Slightly larger */
+  height: 52px;
+  border-radius: 50%; /* Circular buttons */
+  border: 1px solid var(--border-color);
+  user-select: none;
+  box-shadow: var(--shadow-sm);
+}
+.action-button:hover:not(:disabled) {
+  background: var(--background-hover);
+  border-color: var(--border-color-strong);
+  transform: translateY(-1px); /* Slight lift */
+  box-shadow: var(--shadow-md);
+}
+.action-button:focus-visible {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(41, 121, 255, 0.4);
+}
+.action-button:disabled {
+  background: var(--background-content);
+  color: var(--text-disabled);
+  opacity: 0.6;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Mic Button Specifics */
+.mic-button {
+  position: relative;
+  background-color: var(--accent-red);
+  color: white;
+  border-color: var(--accent-red);
+  overflow: hidden; /* For VU meter effect */
+}
+.mic-button:hover:not(:disabled) {
+  background-color: var(--accent-red-hover);
+  border-color: var(--accent-red-hover);
+}
+.mic-button.muted { /* When mic is off/muted */
+    background-color: var(--background-elevated);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+.mic-button.muted:hover:not(:disabled) {
+    background-color: var(--background-hover);
+    border-color: var(--border-color-strong);
+}
+@property --volume {
+  syntax: '<length>';
+  inherit: false;
+  initial-value: 0px;
+}
+.mic-button:not(.muted):before { /* VU Meter pulse */
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: calc(var(--volume) * -1);
+  left: calc(var(--volume) * -1);
+  display: block;
+  opacity: 0.3;
+  background-color: var(--accent-red-hover);
+  width: calc(100% + var(--volume) * 2);
+  height: calc(100% + var(--volume) * 2);
+  border-radius: 50%;
+  transition: all 0.05s ease-out; /* Smoother VU effect */
+}
+
+/* Connect/Disconnect Toggle */
+.connect-toggle:not(.connected) { /* "Play" button state */
+  background-color: var(--accent-green);
+  color: white;
+  border-color: var(--accent-green);
+}
+.connect-toggle:not(.connected):hover {
+  background-color: var(--accent-green-hover);
+  border-color: var(--accent-green-hover);
+}
+.connect-toggle.connected { /* "Pause" button state */
+  background-color: var(--accent-red);
+  color: white;
+  border-color: var(--accent-red);
+}
+.connect-toggle.connected:hover {
+  background-color: var(--accent-red-hover);
+  border-color: var(--accent-red-hover);
+}
+
+/* Control Tray Layout */
+.control-tray {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-end; /* Align items to bottom for visual stability */
+  gap: 16px;
+  padding: 24px 32px; /* More generous padding */
+  z-index: 12;
+  border-radius: var(--card-border-radius) var(--card-border-radius) 0 0; /* Rounded top corners */
+}
+
+.control-tray .connection-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.control-tray .connection-container .text-indicator {
+  font-size: 0.875rem; /* 14px */
+  color: var(--text-secondary);
+  user-select: none;
+  font-weight: 500;
+  padding: 4px 8px;
+  background-color: var(--background-content);
+  border-radius: 4px;
+}
+.control-tray .connection-container.connected .text-indicator {
+  color: var(--accent-green);
+}
+.control-tray .connection-container:not(.connected) .text-indicator {
+  color: var(--accent-red);
+}
+
+
+.actions-nav { /* Container for mic and other action buttons */
+  background: var(--background-content);
+  border: 1px solid var(--border-color);
+  border-radius: calc(52px / 2); /* Pill shape for circular buttons */
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px;
+  box-shadow: var(--shadow-md);
+  position: relative; /* Added for vertical alignment adjustment */
+  top: -23px; /* Nudge UP to be higher than the play button */
+}
+
+/* Modal Styles */
+.modalShroud {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.8); /* Darker, more focused shroud */
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  overflow-y: auto; /* Allow shroud to scroll if modal is too tall */
+}
+
+.modalShroud .modal {
+  background: var(--background-content);
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-border-radius);
+  padding: 32px; /* Generous padding */
+  position: relative;
+  min-width: 320px;
+  width: auto;
+  max-width: calc(100vw - 40px); /* Ensure padding from viewport edges */
+  max-height: calc(100vh - 40px);
+  overflow-y: auto; /* Scroll modal content if it overflows */
+  box-shadow: var(--shadow-lg);
+  animation: modal-fade-in 0.3s ease-out;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modalShroud .modal h2 {
+  margin-top: 0; /* Remove default margin if it's the first child */
+  margin-bottom: 24px;
+  color: var(--text-primary);
+  font-size: 1.75rem; /* 28px */
+  text-align: center;
+}
+
+.modalClose {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: var(--text-secondary);
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  padding: 8px; /* Easier to click */
+  border-radius: 50%;
+  line-height: 1;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.modalClose:hover {
+  color: var(--text-primary);
+  background-color: var(--background-hover);
+}
+.modalClose .icon { font-size: inherit; }
+
+/* User Settings & Agent Edit Modals */
+.userSettings, .editAgent-form-container {
+  width: 100%;
+  max-width: 550px; /* Slightly wider for more content */
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Consistent gap */
+}
+
+.userSettings p, .persona-creation-modal p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  text-align: left; /* Default left, center in persona screen explicitly */
+}
+.persona-creation-modal p { text-align: center; }
+
+
+.userSettings form, .editAgent-form-container form {
+  margin-top: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.userSettingsButton { /* Button in header for user settings */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
+  transition: color 0.2s ease, background-color 0.2s ease;
+  font-size: 0.9375rem; /* 15px */
+  background: transparent;
+  padding: 8px 12px;
+  border-radius: var(--button-border-radius);
+  border: 1px solid transparent; /* For focus state */
+}
+.userSettingsButton .icon {
+  font-size: 22px;
+}
+.userSettingsButton:hover {
+  color: var(--text-primary);
+  background-color: var(--background-hover);
+}
+.userSettingsButton:focus-visible {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(41, 121, 255, 0.3);
+}
+
+/* Form specific layouts (used in modals) */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+form div, form label, form details div { /* Form groups */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  user-select: none;
+}
+form label, form summary { /* Label text styling */
+    font-size: 0.9375rem; /* 15px */
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: 4px; /* Slight space below label */
+}
+form summary {
+  cursor: pointer;
+  color: var(--accent-blue);
+}
+form input.largeInput { /* For prominent inputs like agent name */
+  font-size: 1.5rem; /* 24px */
+  font-family: var(--font-family-serif); /* Use heading font */
+  font-weight: 700;
+  padding: 12px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+  border-radius: 0;
+  color: var(--text-primary);
+}
+form input.largeInput:focus {
+  border-bottom-color: var(--accent-blue);
+  box-shadow: none;
+  background: transparent;
+}
+form hr {
+  margin: 24px 0;
+  border: 0;
+  border-top: 1px solid var(--border-color);
+}
+form button.primary:first-of-type { /* Spacing for primary submit button */
+  margin-top: 24px;
+}
+
+/* Color Picker */
+.colorPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.colorPicker li {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 3px solid transparent; /* Thicker border for active state */
+  overflow: hidden; /* Ensure button inside is contained */
+}
+.colorPicker li:hover {
+  transform: scale(1.15);
+}
+.colorPicker li.active {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px var(--accent-blue); /* Outer glow for active */
+  transform: scale(1.1);
+}
+.colorPicker li button {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: block;
+  padding: 0; /* Remove button padding */
+}
+.colorPicker li button:focus-visible {
+  outline: 3px solid var(--accent-blue-hover);
+  outline-offset: 2px;
+}
+
+/* Edit Agent Layout */
+.editAgent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+@media (min-width: 900px) { /* Adjust breakpoint */
+  .editAgent {
+    grid-template-columns: minmax(350px, 2fr) 1fr;
+  }
+}
+.editAgent-form-container { /* Explicit class for the form part */
+  /* Styles already defined via .userSettings like structure */
+}
+.editAgent-controls-preview { /* Container for preview and voice picker */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding-top: 16px; /* Align with form's content start */
+}
+.agentPreview {
+  width: 220px; /* Larger preview */
+  height: 220px;
+  background: var(--background-main); /* Match overall background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--card-border-radius); /* Consistent radius */
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-inner, inset 0 2px 4px rgba(0,0,0,0.1)); /* Optional inner shadow */
+  overflow: hidden; /* If image is used, ensure it's contained */
+}
+.agentPreview .basic-face-canvas, .agentPreview .basic-face-image {
+  transform: scale(0.9) !important; /* Adjust scale if needed, important to override inline */
+}
+
+.voicePicker {
+  display: flex;
+  flex-direction: column; /* Stack label and select */
+  gap: 8px;
+  align-items: stretch; /* Make select full width of its container */
+  width: 100%;
+  max-width: 250px; /* Max width for voice picker */
+}
+.voicePicker label {
+  text-align: left; /* Align label to left */
+  margin-bottom: 0;
+}
+
+/* Header: Agent/Room List Dropdown */
+.roomInfo {
+  position: relative;
+}
+.roomInfo h1 { /* Current agent name in header */
+  font-size: 1.5rem; /* 24px */
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  opacity: 0.9;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  cursor: pointer; /* Make H1 clickable for dropdown */
+  color: var(--text-primary);
+  margin-bottom: 0; /* Remove default h1 margin */
+}
+.roomInfo h1 .icon { /* Dropdown arrow */
+  font-size: 28px;
+  margin-left: 8px;
+  transition: transform 0.2s ease;
+}
+.roomInfo h1.active .icon {
+  transform: rotate(180deg);
+}
+.roomInfo h1:hover, .roomInfo h1.active {
+  opacity: 1;
+  color: var(--accent-blue);
+}
+
+.roomInfo .createButton { /* "Edit ChatterBot" button */
+  opacity: 1;
+  margin-left: 20px;
+  padding: 8px 16px; /* Slightly smaller button */
+  font-size: 0.875rem; /* 14px */
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+}
+.roomInfo .createButton:hover {
+    background-color: var(--background-hover);
+    border-color: var(--border-color-strong);
+}
+.roomInfo .createButton .icon {
+  font-size: 20px;
+}
+
+.roomName { /* Container for H1 and Edit button */
+  display: flex;
+  align-items: center;
+}
+
+.roomList { /* Dropdown content */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: calc(100% + 12px); /* Position below trigger */
+  left: 0;
+  background: var(--background-content);
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  border-radius: var(--card-border-radius);
+  min-width: 320px; /* Wider dropdown */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px) scale(0.95);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  user-select: none;
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 1001; /* Above header content */
+  box-shadow: var(--shadow-lg);
+}
+.roomList.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+.roomList h3 { /* Section titles in dropdown */
+  font-size: 0.8125rem; /* 13px */
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-family: var(--font-family-sans); /* Use sans-serif for UI elements */
+  font-weight: 700;
+}
+.roomList ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+.roomList ul:not(:last-of-type) {
+  border-bottom: 1px solid var(--border-color);
+}
+.roomList li button {
+  color: var(--text-secondary);
+  font-weight: 400; /* Normal weight for items */
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  background: transparent;
+  border: none; /* Remove border from list item buttons */
+  border-radius: var(--input-border-radius); /* Consistent radius */
+  justify-content: flex-start;
+}
+.roomList li button:hover {
+  background-color: var(--background-hover);
+  color: var(--text-primary);
+}
+.roomList li.active button {
+  color: var(--accent-blue);
+  font-weight: 500;
+  background-color: var(--accent-blue-subtle);
+}
+.roomList .newRoomButton { /* "New ChatterBot" buttons in dropdown */
+  font-size: 0.875rem; /* 14px */
+  width: 100%;
+  margin-top: 8px;
+  background-color: var(--background-elevated);
+  border-color: var(--border-color-strong);
+}
+.roomList .newRoomButton .icon {
+  font-size: 20px;
+}
+.roomList .newRoomButton:hover {
+    background-color: var(--background-hover);
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+
+/* Error Screen */
+.error-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Use vh for full viewport height */
+  width: 100%;
+  background: var(--background-main);
+  color: var(--text-primary);
+  gap: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 30px; /* More padding */
+  z-index: 99991;
+  text-align: center;
+}
+.error-screen .error-message-container,
+.error-screen .error-raw-message-container {
+  width: 100%;
+  max-width: 600px; /* Wider for better readability */
+}
+.error-screen h2 {
+  color: var(--accent-red);
+  font-size: 2rem; /* Larger error title */
+}
+.error-screen .error-message-container {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+.error-screen .error-raw-message-container {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.4;
+  color: var(--text-secondary);
+  margin-top: 24px;
+  background: var(--background-content);
+  padding: 15px 20px;
+  border-radius: var(--input-border-radius);
+  max-width: 90%;
+  word-break: break-all;
+  text-align: left;
+  border: 1px solid var(--border-color);
+}
+.error-screen .error-raw-message-container strong {
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 8px;
+}
+.error-screen .error-raw-message-container pre {
+  white-space: pre-wrap;
+  font-family: var(--font-family-mono);
+}
+.error-screen button.primary {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+.error-screen button.primary:hover {
+    background-color: var(--accent-blue-hover);
+    border-color: var(--accent-blue-hover);
+}
+
+/* Spinner Animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.spinner {
+  border: 4px solid var(--background-hover); /* Lighter track */
+  border-top: 4px solid var(--accent-blue); /* Spinner color */
+  border-radius: 50%;
+  width: 48px; /* Larger spinner */
+  height: 48px;
+  animation: spin 1s linear infinite;
+  margin: 24px auto;
+}
+
+/* Basic Face (Avatar) Styling */
+.basic-face-canvas, .basic-face-image {
+  display: block;
+  /* Add a subtle glow effect if desired, matches previous style */
+  box-shadow: 0px 0px 35px -10px var(--accent-blue);
+  border-radius: 50%; /* Ensure image is circular if it's a square image */
+}
+.basic-face-image {
+  object-fit: cover; /* Crucial for non-square images */
+  background-color: var(--background-content); /* Fallback if image fails */
+}
+
+/* Persona Creation Screen specific styles */
+.persona-creation-modal {
+  /* General modal styles apply from .modal */
+  /* Specific content styling */
+}
+.persona-creation-modal h2 {
+  color: var(--accent-blue); /* Themed title */
+  margin-bottom: 24px;
+}
+.persona-creation-modal .largeInput { /* For persona name search */
+  font-size: 1.125rem; /* 18px */
+  padding: 14px 18px; /* More padding */
+}
+.persona-creation-modal button.primary {
+  padding: 14px 28px;
+  font-size: 1.0625rem; /* ~17px */
+}
+.persona-creation-modal .icon.spin {
+  animation: spin 1s linear infinite;
+  font-size: 20px; /* Adjust spinner icon size */
+  width: 20px; /* Ensure consistent size for layout */
+  height: 20px;
+}
+.persona-creation-modal form div label, .persona-creation-modal form div input, .persona-creation-modal form div textarea {
+    text-align: left; /* Align labels and input text to left for forms */
+}
+.persona-creation-modal form {
+    gap: 20px; /* Increased gap in persona user form */
+}
+
+/* Keynote Companion (Main Chat Area) */
+.keynote-companion {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+.keynote-companion p { /* Loading text */
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+/* Ensure that if an agent doesn't have a color (e.g. from Wikipedia), a default is used */
+.agentPreview .basic-face-canvas {
+    /* Default fill for canvas if agent.bodyColor is undefined, but it should always have one from createNewAgent */
+}
+
+/* Final polish on some specific elements for better hierarchy and clarity */
+.editAgent-controls-preview > p { /* "Cor do Avatar" label */
+    font-size: 0.9375rem; /* 15px */
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.modalShroud .modal .modalContent { /* Add a class to wrap modal children if needed for consistent padding */
+  /* padding: 0 8px; Example, if content needs to be inset from main modal padding */
+}
